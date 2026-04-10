@@ -17,6 +17,8 @@ def create_app():
 
 app=create_app() #call this function to create app
 
+with app.app_context():
+    db.create_all()
 from application.controllers import * #2
 from application.resources import *   # api implementation
 
