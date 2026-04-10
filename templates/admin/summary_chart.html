@@ -1,0 +1,54 @@
+{% extends 'base_layout/base_admin.html' %}
+
+{% block title %} Summary {% endblock %}
+
+{% block admin_dashboard %} 
+
+<div class="container mt-5 " >
+    <h2 class="text-center mb-4">Earnings's Summary</h2>
+    <div class="card p-3 text-center" style=" height: 500px;">
+        <canvas id="earningsChart" style="height: 100%; width: 100%;"  ></canvas>
+    </div>      
+
+<script>
+    const ctx = document.getElementById('earningsChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels | tojson }},
+            datasets: [{
+                label: 'Total Earnings (₹)',
+                data: {{ values | tojson }},
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Earnings in ₹'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Parking Lot Location'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</div>
+
+
+
+
+
+{% endblock %}

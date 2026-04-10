@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Parking Lot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body style="background-color: #d9d9dd;">
+    <div class="container">
+        <div class="login-container">
+            <h2 class="heading">Edit Parking Lot </h2>
+            <p class="text-black-50">Please Enter Details</p>
+            
+            <form action="{{ url_for('edit_lot',lot_id=lot.id)}}" method="POST">
+        
+                <div class="mb-3">
+                    <label for="inputlocation" class="form-label">Prime Location Name</label>
+                    <input type="text" class="form-control" id="inputlocation" value="{{lot.prime_location_name}}"  name="location" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputAddress" class="form-label">Address : </label>
+                    <textarea class="form-control" id="inputAddress"  name="address" rows="2">{{lot.address}}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputPincode" class="form-label">Pincode :</label>
+                    <input type="number" id="inputPincode" class="form-control" value="{{lot.pin_code}}" name="pincode"  required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPrice" class="form-label">Price (per hour)</label>
+                    <input type="number" id="inputPrice" step="1" min="0" value="{{lot.price}}" class="form-control" name="price" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputSpot" class="form-label">Maximum spots</label>
+                    <input type="number" id="inputSpot" step="1" min="0" value="{{lot.max_no_spots}}" class="form-control" name="max_no_spots" required>
+                </div>
+                <div class="submit-btn text-center">
+                    <button type="submit" class="btn btn-primary ">Update</button>
+                    <a href="{{ url_for('admin_dashboard')}}" type="cancel" class="btn btn-secondary ms-5 ">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

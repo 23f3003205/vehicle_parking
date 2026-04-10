@@ -1,0 +1,100 @@
+{% extends 'base_layout/base_admin.html' %}
+
+{% block title %} Admin Search Page {% endblock %}
+
+{% block admin_dashboard %}
+<div class="container margin mb-3">
+    <div class="d-flex justify-content-center">
+        <div class="input-group  margin" style="margin-top: 3rem; max-width: 420px;">
+            <form action="{{ url_for('admin_search') }}" method="POST" class="d-flex w-100">
+                <select class="form-select border-primary bg-secondary text-white" name="search_by" id="search_by"
+                    style="flex-grow: 0; width: 120px;">
+                    <option value="user_id" >User Id</option>
+                    <option value="prime_location_name" >Location Name</option>
+                </select>
+                <input type="text" class="form-control border-primary" name="search_value" placeholder="Enter search term"
+                    aria-label="Search input" value="{{ request.form.get('search_value', '') }}">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
+            </form>
+        </div>
+    </div>
+
+    {% if register_user_detail %}
+    <div class="text-center mb-4 mt-2">
+        <h3 class="fw-bold text-white bg-primary py-2 rounded">Registerd User {{search_query}}</h3>
+    </div>
+    
+    <table class="table table-bordered ">
+        <thead class="table-primary text-center">
+            <tr>
+                <th>Id</th>
+                <th>Email </th>
+                <th>Fullname</th>
+                <th>DOB</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+
+            <tr>
+                <td>{{register_user_detail.id}}</td>
+                <td>{{register_user_detail.username}}</td>
+                <td>{{register_user_detail.fullname}}</td>
+                <td>{{register_user_detail.dob}}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    {% elif lot %}
+    <div class="text-center mt-2 mb-4">
+        <h3 class="fw-bold text-white bg-primary py-2 rounded">Search Lot for {{search_query}}</h3>
+    </div>
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h5 class="card-title text-center fw-bold">{{ lot.prime_location_name }}</h5>
+        
+                    <!-- Edit and Delete Buttons -->
+                    <div class="d-flex justify-content-center mb-2">
+                        <a href="{{ url_for('edit_lot',lot_id=lot.id)}}" class="btn btn-sm btn-primary me-2">Edit</a>
+                        <a href="{{ url_for('delete_lot',lot_id=lot.id)}}" class="btn btn-sm btn-danger">Delete</a>
+                    </div>
+        
+                    <!-- Occupied Badge -->
+                    <div class="text-center mb-2">
+                        <span class="badge bg-primary">Occupied : {{lot.occupied_count}}/{{ lot.max_no_spots }}</span>
+                    </div>
+                </div>
+        
+                <div class="card-body">
+        
+        
+                    <!-- Parking Grid -->
+        
+                    <div class=" d-flex flex-wrap gap-2 text-center">
+                        {% for spot in lot.spots %}
+                        <a href="{{ url_for('view_spot_detail', spot_id=spot.id) }}" class="border p-2 d-flex justify-content-center align-items-center rounded
+                                                {% if spot.status == 'A' %}bg-success{% else %}bg-secondary{% endif %}
+                                                bg-opacity-75 text-white text-decoration-none"
+                            style="width: 40px; height: 40px;">
+                            {{ loop.index }}
+                        </a>
+                        {% endfor %}
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+   
+
+    {% elif not register_user_detail and not lot and request.method == 'POST' %}
+    <div class="text-center mt-4">
+        <p class="text-muted">No results found. Please try a different search term.</p>
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

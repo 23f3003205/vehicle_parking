@@ -1,0 +1,25 @@
+.navbg{
+    background-color: #7b25eb;
+}
+.welcome-text {
+    font-weight: bold;
+    color: white;
+}
+.nav-link{
+    color: white !important;
+}
+
+.container-fluid{
+    margin-right: 75px;
+    margin-left: 80px;
+}
+
+@media screen  and (max-width:786px){
+    .container-fluid{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    
+}

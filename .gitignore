@@ -1,0 +1,34 @@
+# Bytecode / caches
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual envs
+venv/
+.env/
+.env
+.venv/
+env/
+ENV/
+
+# Python packaging
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Flask / local instance DB
+instance/*.sqlite3
+*.sqlite3
+
+# IDE / OS files
+.vscode/
+*.swp
+.DS_Store
+
+# Test caches
+.pytest_cache/
+
+# Logs
+*.log

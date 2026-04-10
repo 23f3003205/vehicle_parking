@@ -1,0 +1,43 @@
+{%  extends 'base_layout/base_admin.html' %}
+
+{% block register_user_detail %}
+
+<div class="container mb-3 margin">
+    <!-- heading -->
+    <div class="text-center mb-4">
+        <h3 class="fw-bold text-white bg-primary py-2 rounded">Registerd Users</h3>
+    </div>
+    
+    <table class="table table-bordered ">
+        <thead class="table-primary text-center">
+            <tr>
+                <th>Id</th>
+                <th>Email </th>
+                <th>Fullname</th>
+                <th>DOB</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            {% if users %}
+            {% for user in users %}
+            {% if user.type =='general' %}
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.fullname}}</td>
+                <td>{{user.dob}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="4">No user Found</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    
+</div>
+
+
+{% endblock %}

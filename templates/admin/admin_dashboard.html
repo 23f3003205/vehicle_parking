@@ -1,0 +1,65 @@
+{% extends 'base_layout/base_admin.html' %}
+
+{% block admin_dashboard   %}
+<div class="container margin mb-3">
+    <!-- heading -->
+    <div class="text-center mb-4">
+        <h3 class="fw-bold text-white bg-primary py-2 rounded">Parking Lots</h3>
+    </div>
+
+    <!-- Parking Lots -->
+     
+    <!-- Parking Lots Grid -->
+    <div class="row g-4">
+        {%  for lot in parking_lots %}
+        <!-- Parking Lot Card 1 -->
+        <div class="col-md-4">
+            <div class="card shadow">
+                        <div class="card-header">
+                        <h5 class="card-title text-center fw-bold">{{ lot.prime_location_name }}</h5>
+
+                        <!-- Edit and Delete Buttons -->
+                        <div class="d-flex justify-content-center mb-2">
+                            <a href="{{ url_for('edit_lot',lot_id=lot.id)}}" class="btn btn-sm btn-primary me-2">Edit</a>
+                            <a href="{{ url_for('delete_lot',lot_id=lot.id)}}" class="btn btn-sm btn-danger">Delete</a>
+                        </div>
+
+                        <!-- Occupied Badge -->
+                        <div class="text-center mb-2">
+                            <span class="badge bg-primary">Occupied : {{lot.occupied_count}}/{{  lot.max_no_spots }}</span>
+                        </div>
+                    </div>
+
+                <div class="card-body">
+
+
+                    <!-- Parking Grid -->
+                    
+                    <div class=" d-flex flex-wrap gap-2 text-center">
+                        {% for spot in lot.spots %}
+                                <a href="{{ url_for('view_spot_detail', spot_id=spot.id) }}"
+                                   class="border p-2 d-flex justify-content-center align-items-center rounded
+                                          {% if spot.status == 'A' %}bg-success{% else %}bg-secondary{% endif %}
+                                          bg-opacity-75 text-white text-decoration-none"
+                                   style="width: 40px; height: 40px;">
+                                    {{ loop.index }}
+                                </a>
+                        {% endfor %}
+                    </div>
+ 
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Add Parking Lot Button -->
+    <div class="position-fixed bottom-0 end-0 m-4">
+        <a href="{{ url_for('add_lot') }}" class="btn btn-lg btn-primary d-flex align-items-center">
+            <i class="bi bi-plus-square-fill me-1"></i> Add Parking Lot
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
