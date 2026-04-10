@@ -11,7 +11,7 @@ from .models import * # . dot refers that search models.py in existing folder
 
 @app.route("/create-admin")
 def create_admin():
-    user = User(username="admin123", password="1234", fullname="Admin")
+    user = User(username="admin123", password="1234", fullname="Admin", type="admin")
     db.session.add(user)
     db.session.commit()
     return "Admin created"
