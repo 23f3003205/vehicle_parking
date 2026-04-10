@@ -11,10 +11,17 @@ from .models import * # . dot refers that search models.py in existing folder
 
 @app.route("/create-admin")
 def create_admin():
-    user = User(username="admin", password="admin123", fullname="Admin")
+    user = User(username="admin123", password="1234", fullname="Admin")
     db.session.add(user)
     db.session.commit()
     return "Admin created"
+
+@app.route("/add-dum-user")
+def create_user():
+    user = User(username="harsh123", password="1234", fullname="harsh",dob="15-04-2204")
+    db.session.add(user)
+    db.session.commit()
+    return "User created"
 
 
 @app.route('/',methods=['GET','POST'])
