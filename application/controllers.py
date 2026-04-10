@@ -9,6 +9,14 @@ IST = pytz.timezone('Asia/Kolkata')
 
 from .models import * # . dot refers that search models.py in existing folder
 
+@app.route("/create-admin")
+def create_admin():
+    user = User(username="admin", password="admin123", fullname="Admin")
+    db.session.add(user)
+    db.session.commit()
+    return "Admin created"
+
+
 @app.route('/',methods=['GET','POST'])
 def login():
     if request.method=='POST':
